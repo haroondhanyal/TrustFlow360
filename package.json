@@ -1,0 +1,11 @@
+{
+  "name": "trustflow360",
+  "version": "0.1.0",
+  "private": true,
+  "workspaces": ["apps/web"],
+  "scripts": {
+    "dev": "npm run dev --workspace @trustflow360/web",
+    "build": "npm run build --workspace @trustflow360/web",
+    "lint": "npm run lint --workspace @trustflow360/web"
+  }
+}
