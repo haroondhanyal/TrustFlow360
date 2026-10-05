@@ -11,6 +11,14 @@ Full-page screenshots captured from the local app after seeding the NexaTel deve
 | Sign up | [03-signup.png](03-signup.png) |
 | Accept invitation | [04-invitation-join.png](04-invitation-join.png) |
 
+## Profile and themes
+
+| Screen | Full-page screenshot |
+|---|---|
+| Profile details and add/change/remove photo | [22-profile-settings.png](22-profile-settings.png) |
+| Dark theme and appearance picker | [23-profile-dark-theme.png](23-profile-dark-theme.png) |
+| Dashboard with saved account photo | [24-dashboard-with-profile-photo.png](24-dashboard-with-profile-photo.png) |
+
 ## Workspace and procurement
 
 | Screen | Full-page screenshot |

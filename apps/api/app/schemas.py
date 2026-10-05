@@ -1,3 +1,6 @@
+import base64
+import binascii
+
 from pydantic import BaseModel, ConfigDict, EmailStr, Field, field_validator
 
 
@@ -30,6 +33,30 @@ class UserResponse(BaseModel):
     first_name: str
     last_name: str
     organization_id: str | None
+    role: str
+    avatar_data: str | None = None
+
+
+class UserProfileUpdate(BaseModel):
+    first_name: str | None = Field(default=None, min_length=1, max_length=100)
+    last_name: str | None = Field(default=None, min_length=1, max_length=100)
+    avatar_data: str | None = Field(default=None, max_length=1_000_000)
+
+    @field_validator("avatar_data")
+    @classmethod
+    def validate_avatar(cls, value: str | None):
+        if value is None:
+            return value
+        try:
+            header, encoded = value.split(",", 1)
+            if header not in {"data:image/jpeg;base64", "data:image/png;base64", "data:image/webp;base64"}:
+                raise ValueError("Use a JPEG, PNG or WebP profile photo.")
+            decoded = base64.b64decode(encoded, validate=True)
+            if not decoded or len(decoded) > 750_000:
+                raise ValueError("Profile photos must be smaller than 750 KB.")
+        except (ValueError, binascii.Error):
+            raise ValueError("Upload a valid JPEG, PNG or WebP image under 750 KB.") from None
+        return value
 
 
 class OrganizationResponse(BaseModel):

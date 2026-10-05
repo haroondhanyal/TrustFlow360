@@ -10,13 +10,22 @@ from app.core.security import create_token, decode_token, fingerprint, hash_pass
 from app.db.session import get_db
 from app.models import Organization, RefreshSession, User, now_utc
 from app.dependencies import current_user
-from app.schemas import LoginRequest, RegisterRequest, TokenResponse, UserResponse
+from app.schemas import LoginRequest, RegisterRequest, TokenResponse, UserProfileUpdate, UserResponse
 
 router = APIRouter()
 
 
 @router.get("/me", response_model=UserResponse)
 def read_current_user(user: User = Depends(current_user)):
+    return user
+
+
+@router.patch("/me", response_model=UserResponse)
+def update_current_user(payload: UserProfileUpdate, user: User = Depends(current_user), db: Session = Depends(get_db)):
+    for field, value in payload.model_dump(exclude_unset=True).items():
+        setattr(user, field, value.strip() if field in {"first_name", "last_name"} and value is not None else value)
+    db.commit()
+    db.refresh(user)
     return user
 
 

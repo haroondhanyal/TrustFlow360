@@ -52,12 +52,22 @@ The seeder creates 20 role-based development accounts and 25–30 records for ea
 
 Available screens include `/`, `/login`, `/signup`, `/dashboard`, the organization and procurement workspaces, plus `/shipments`, `/finance`, `/risks`, `/credentials`, `/assets`, `/proofs` and `/assistant`. Sign-up creates the account, organization and named workspace. Workspace screens require an authenticated session.
 
+## Profile and appearance
+
+Open **Edit profile** from the dashboard account area or visit `/profile` to update your first and last name, add or replace a profile photo, or remove it. Photos are resized to a 512-pixel JPEG in the browser, validated by the API, and stored on the account in PostgreSQL. The sign-in email and workspace role are shown as read-only details.
+
+Choose **Light**, **Dark**, **Ocean** or **Violet** from the Theme menu on workspace screens. The choice is saved in browser storage and stays active as you navigate between the dashboard and modules. The new profile and theme examples are shown below and in the [screenshot gallery](docs/screenshots/README.md).
+
+The Next.js development indicator badge is hidden to keep the workspace clean; build and runtime errors still appear in the development server output.
+
 ## Tech choices
 
 - Next.js App Router, React and TypeScript
 - CSS variables and small, reusable React components
 - FastAPI, SQLAlchemy, PostgreSQL and Alembic for the account, organization and refresh-session foundation.
 - Argon2 password hashes, short-lived JWT access tokens, rotating refresh sessions and same-site `HttpOnly` browser cookies.
+- Profile updates use the signed-in account; the profile API accepts name changes and validated JPEG/PNG/WebP photos, including a `null` value to remove the photo.
+- Four persistent workspace themes (Light, Dark, Ocean, Violet) with an appearance picker in the dashboard and module navigation.
 - Dashboard counts, vendor trust snapshot, pending approvals and recent activity load from the signed-in organization’s API records.
 - Protected workspace navigation renews short-lived access tokens with the rotating refresh session.
 - Phase 2: tenant-scoped users, custom roles/permissions, departments, copyable one-time team invitations, vendor lifecycle, certificates, verification and Trust Passport.
@@ -80,6 +90,7 @@ Keep each screen in its own route folder, move shared visual elements into `comp
 
 - `GET/POST /vendors`, `PATCH /vendors/{id}`, verify/suspend actions, certifications and `/vendors/{id}/passport`
 - `/organization/users`, `/organization/roles`, `/organization/departments`, `/organization/invitations` and `/organization/invitations/accept`
+- `/auth/me` to read and update the current user's name and profile photo.
 - `GET/POST /rfqs`, publish approval, bid submission/comparison/award, `/approvals`, `/contracts` and `/purchase-orders` with items
 - `/operations/shipments`, `/operations/finance`, `/operations/risks`, `/operations/credentials`, `/operations/assets`, `/operations/proofs`, `/operations/verify/{digest}` and `/operations/assistant`
 - All business records carry an `organization_id`; API lookups check the signed-in user's tenant before returning or changing a record.
@@ -104,6 +115,22 @@ The screenshots below were captured from the running app with the seeded demo wo
 
 #### Accept invitation
 <a href="docs/screenshots/04-invitation-join.png"><img src="docs/screenshots/04-invitation-join.png" alt="TrustFlow 360 invitation acceptance screen" width="100%"></a>
+
+</details>
+
+### Account profile and themes
+
+<details>
+<summary>Profile editing, photo controls, and theme selection (3 screens)</summary>
+
+#### Edit profile and add or remove a photo
+<a href="docs/screenshots/22-profile-settings.png"><img src="docs/screenshots/22-profile-settings.png" alt="Edit account name and add, change or remove the profile photo" width="100%"></a>
+
+#### Dark theme with appearance options
+<a href="docs/screenshots/23-profile-dark-theme.png"><img src="docs/screenshots/23-profile-dark-theme.png" alt="Dark workspace theme and Light, Dark, Ocean, and Violet appearance options" width="100%"></a>
+
+#### Dashboard with saved profile photo
+<a href="docs/screenshots/24-dashboard-with-profile-photo.png"><img src="docs/screenshots/24-dashboard-with-profile-photo.png" alt="Dashboard showing the signed-in user's saved profile photo" width="100%"></a>
 
 </details>
 

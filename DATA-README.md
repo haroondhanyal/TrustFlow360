@@ -55,6 +55,8 @@ The seed is additive and idempotent: running it again fills missing demo records
 
 Sign-in, signup, invitation acceptance and the Trust Assistant are interactive flows rather than data tables; the seed provides accounts/links/records for those screens to use.
 
+Profile photos are optional and can be added, changed or removed on `/profile`. The example photo shown in the screenshots was uploaded to the local development admin account; a newly seeded database starts with initials until a user adds a photo.
+
 ## Reset and seed
 
 To add missing demo rows to the current local database:

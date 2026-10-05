@@ -44,4 +44,4 @@ async function refreshAndContinue(request: NextRequest) {
   return response;
 }
 
-export const config = { matcher: ["/dashboard/:path*", "/vendors/:path*", "/organization/:path*", "/rfqs/:path*", "/bids/:path*", "/approvals/:path*", "/contracts/:path*", "/purchase-orders/:path*", "/shipments/:path*", "/finance/:path*", "/risks/:path*", "/credentials/:path*", "/assets/:path*", "/proofs/:path*", "/assistant/:path*", "/verify/:path*"] };
+export const config = { matcher: ["/dashboard/:path*", "/profile/:path*", "/vendors/:path*", "/organization/:path*", "/rfqs/:path*", "/bids/:path*", "/approvals/:path*", "/contracts/:path*", "/purchase-orders/:path*", "/shipments/:path*", "/finance/:path*", "/risks/:path*", "/credentials/:path*", "/assets/:path*", "/proofs/:path*", "/assistant/:path*", "/verify/:path*"] };
