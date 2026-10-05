@@ -86,7 +86,91 @@ Keep each screen in its own route folder, move shared visual elements into `comp
 
 ## Screenshots
 
-Full-page screenshots were captured from the running app after seeding fresh demo records. The [screenshot gallery](docs/screenshots/README.md) covers the landing/auth flow, organization, vendor passport, procurement, operations, proof verification and Trust Assistant screens.
+The screenshots below were captured from the running app with the seeded demo workspace. The authenticated workspace screens show real API-backed sample data, including 30-row tables. Expand a section to view its screens; each image links to its full-size PNG. For a compact index, see the [screenshot gallery](docs/screenshots/README.md). Demo account details and sample data counts are in [DATA-README.md](DATA-README.md).
+
+### Public and account screens
+
+<details>
+<summary>Landing page and account flows (4 screens)</summary>
+
+#### Landing page
+<a href="docs/screenshots/01-home.png"><img src="docs/screenshots/01-home.png" alt="TrustFlow 360 landing page" width="100%"></a>
+
+#### Sign in
+<a href="docs/screenshots/02-login.png"><img src="docs/screenshots/02-login.png" alt="TrustFlow 360 sign in screen" width="100%"></a>
+
+#### Sign up
+<a href="docs/screenshots/03-signup.png"><img src="docs/screenshots/03-signup.png" alt="TrustFlow 360 sign up screen" width="100%"></a>
+
+#### Accept invitation
+<a href="docs/screenshots/04-invitation-join.png"><img src="docs/screenshots/04-invitation-join.png" alt="TrustFlow 360 invitation acceptance screen" width="100%"></a>
+
+</details>
+
+### Organization and procurement
+
+<details>
+<summary>Organization, vendors, sourcing, and purchasing (9 screens)</summary>
+
+#### Dashboard
+<a href="docs/screenshots/05-dashboard.png"><img src="docs/screenshots/05-dashboard.png" alt="TrustFlow 360 dashboard with seeded workspace data" width="100%"></a>
+
+#### People, departments, and roles
+<a href="docs/screenshots/06-organization.png"><img src="docs/screenshots/06-organization.png" alt="Organization members, departments, roles, and invitations" width="100%"></a>
+
+#### Vendors
+<a href="docs/screenshots/07-vendors.png"><img src="docs/screenshots/07-vendors.png" alt="Vendor management with 30 seeded records" width="100%"></a>
+
+#### Vendor Trust Passport
+<a href="docs/screenshots/08-vendor-passport.png"><img src="docs/screenshots/08-vendor-passport.png" alt="Vendor Trust Passport" width="100%"></a>
+
+#### RFQs
+<a href="docs/screenshots/09-rfqs.png"><img src="docs/screenshots/09-rfqs.png" alt="RFQ management with 30 seeded records" width="100%"></a>
+
+#### Bid comparison
+<a href="docs/screenshots/10-bids.png"><img src="docs/screenshots/10-bids.png" alt="Bid comparison workspace" width="100%"></a>
+
+#### Approvals
+<a href="docs/screenshots/11-approvals.png"><img src="docs/screenshots/11-approvals.png" alt="Approval queue" width="100%"></a>
+
+#### Contracts
+<a href="docs/screenshots/12-contracts.png"><img src="docs/screenshots/12-contracts.png" alt="Contract management" width="100%"></a>
+
+#### Purchase orders
+<a href="docs/screenshots/13-purchase-orders.png"><img src="docs/screenshots/13-purchase-orders.png" alt="Purchase order management" width="100%"></a>
+
+</details>
+
+### Operations and verification
+
+<details>
+<summary>Logistics, finance, risk, assets, and proof verification (8 screens)</summary>
+
+#### Shipments
+<a href="docs/screenshots/14-shipments.png"><img src="docs/screenshots/14-shipments.png" alt="Shipment tracking workspace" width="100%"></a>
+
+#### Finance and invoices
+<a href="docs/screenshots/15-finance.png"><img src="docs/screenshots/15-finance.png" alt="Finance and invoice workspace" width="100%"></a>
+
+#### Risks and compliance
+<a href="docs/screenshots/16-risks.png"><img src="docs/screenshots/16-risks.png" alt="Risk and compliance workspace" width="100%"></a>
+
+#### Credentials
+<a href="docs/screenshots/17-credentials.png"><img src="docs/screenshots/17-credentials.png" alt="Credential registry" width="100%"></a>
+
+#### Assets
+<a href="docs/screenshots/18-assets.png"><img src="docs/screenshots/18-assets.png" alt="Asset register" width="100%"></a>
+
+#### Proof ledger
+<a href="docs/screenshots/19-proof-ledger.png"><img src="docs/screenshots/19-proof-ledger.png" alt="Hash-linked proof ledger" width="100%"></a>
+
+#### Proof verification
+<a href="docs/screenshots/20-proof-verification.png"><img src="docs/screenshots/20-proof-verification.png" alt="Public proof verification screen" width="100%"></a>
+
+#### Trust Assistant
+<a href="docs/screenshots/21-trust-assistant.png"><img src="docs/screenshots/21-trust-assistant.png" alt="Trust Assistant screen" width="100%"></a>
+
+</details>
 
 ## Roadmap
 
