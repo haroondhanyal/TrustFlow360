@@ -4,15 +4,15 @@ The work is split into four developer-friendly phases. Each screen and feature f
 
 ## Phase 1 — Foundation and product experience
 
-**Complete.** Brand and repository setup, landing page, sign-in, three-step account and organization onboarding, workspace creation, protected dashboard shell, FastAPI service, JWT auth, PostgreSQL models and Alembic migration, Docker Compose, and run instructions. Dashboard cards use isolated demo data until the Phase 2 business APIs are added.
+**Complete.** Brand and repository setup, landing page, sign-in, three-step account and organization onboarding, workspace creation, protected dashboard shell, FastAPI service, JWT auth, PostgreSQL models and Alembic migration, Docker Compose, and run instructions. Dashboard summary cards use isolated demo data; Phase 2 and 3 screens use tenant-scoped API records.
 
 ## Phase 2 — Trust and organization
 
-Organization members, roles, departments, vendor lifecycle, verification status and Trust Passport.
+**Complete.** Organization members, tenant roles and permissions, departments, one-time invitation links, vendor management, verification lifecycle, certifications and Trust Passport.
 
 ## Phase 3 — Procurement workflows
 
-RFQ creation and publishing, bid submission and comparison, approvals, contracts and purchase orders.
+**Complete.** RFQ creation and approval to publish, side-by-side bid comparison, award/decline, approval queue, contract review and activation, and purchase orders with line items and approval.
 
 ## Phase 4 — Operations and verification
 

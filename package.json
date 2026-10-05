@@ -8,6 +8,7 @@
     "build": "npm run build --workspace @trustflow360/web",
     "lint": "npm run lint --workspace @trustflow360/web",
     "stack:up": "docker compose up --build",
-    "stack:down": "docker compose down"
+    "stack:down": "docker compose down",
+    "seed:demo": "docker compose exec api python -m app.seed"
   }
 }

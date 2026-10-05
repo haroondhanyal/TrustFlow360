@@ -12,14 +12,14 @@ TrustFlow 360 is an enterprise trust, procurement, supply chain and verification
 3. **Procurement workflows** — RFQs, bids, approvals, contracts and purchase orders.
 4. **Operations and verification** — shipments, QR verification, finance, risk, credentials, assets, blockchain and AI foundations.
 
-Each phase is delivered incrementally. The product brief's wider modules are grouped into these four delivery phases.
+Phases 1, 2 and 3 are implemented. Phase 4 covers supply-chain operations and verification foundations.
 
 ## Phase 1 structure
 
 ```text
 apps/web/       Next.js App Router application
   app/          One route per screen (home, login, signup, dashboard)
-  components/   Shared UI and brand components
+  components/   Brand, authentication and reusable module screens
   lib/          Demo dashboard data and shared helpers
   public/       Logo and static assets
 apps/api/       FastAPI service, authentication, organization API and migrations
@@ -44,6 +44,8 @@ npm run stack:up
 
 This starts PostgreSQL, applies the initial Alembic migration, starts the API at <http://localhost:8000> and web app at <http://localhost:3000>. API docs are at <http://localhost:8000/docs>. The PostgreSQL volume persists between runs; `npm run stack:down` stops the services without deleting data.
 
+To populate a local demo workspace, run `npm run seed:demo` after the stack is ready. Demo sign-in: `admin@demo.local` / `Demo-TrustFlow-123!` (development only). Change or remove this account before sharing a non-local deployment.
+
 Available screens: `/`, `/login`, `/signup`, and `/dashboard`. Sign-up creates the account, organization and named workspace. The dashboard route requires an auth cookie.
 
 ## Tech choices
@@ -52,7 +54,9 @@ Available screens: `/`, `/login`, `/signup`, and `/dashboard`. Sign-up creates t
 - CSS variables and small, reusable React components
 - FastAPI, SQLAlchemy, PostgreSQL and Alembic for the account, organization and refresh-session foundation.
 - Argon2 password hashes, short-lived JWT access tokens, rotating refresh sessions and same-site `HttpOnly` browser cookies.
-- Dashboard metrics and activity use a separate realistic demo-data module until the Phase 2 business APIs are delivered.
+- Dashboard summary cards use a separate realistic demo-data module; Phase 2 and 3 record screens load and save organization-scoped API data.
+- Phase 2: tenant-scoped users, custom roles/permissions, departments, copyable one-time team invitations, vendor lifecycle, certificates, verification and Trust Passport.
+- Phase 3: RFQ creation and approval to publish, comparable vendor bids with best-price/technical/delivery highlights, award/decline, contract review, purchase orders with line items, and approval decisions.
 
 ## Configuration and security
 
@@ -61,6 +65,13 @@ Docker Compose uses development-only credentials. Before deploying, provide a st
 ## Developer workflow
 
 Keep each screen in its own route folder, move shared visual elements into `components/`, API schemas into `apps/api/app/schemas.py`, and demo content into `apps/web/lib/`. Avoid giant page files and keep feature modules independently assignable across the eight developers.
+
+### Phase 2 and 3 API groups
+
+- `GET/POST /vendors`, `PATCH /vendors/{id}`, verify/suspend actions, certifications and `/vendors/{id}/passport`
+- `/organization/users`, `/organization/roles`, `/organization/departments`, `/organization/invitations` and `/organization/invitations/accept`
+- `GET/POST /rfqs`, publish approval, bid submission/comparison/award, `/approvals`, `/contracts` and `/purchase-orders` with items
+- All business records carry an `organization_id`; API lookups check the signed-in user's tenant before returning or changing a record.
 
 ## Screenshots
 
