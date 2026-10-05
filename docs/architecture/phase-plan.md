@@ -4,7 +4,7 @@ The work is split into four developer-friendly phases. Each screen and feature f
 
 ## Phase 1 — Foundation and product experience
 
-Brand and repository setup, landing page, sign-in, onboarding entry, application shell, dashboard, and initial API/database architecture. Current increment includes the brand, separate web routes, responsive design system, demo dashboard and run instructions. API/database wiring remains an explicit follow-up before declaring Phase 1 complete.
+**Complete.** Brand and repository setup, landing page, sign-in, three-step account and organization onboarding, workspace creation, protected dashboard shell, FastAPI service, JWT auth, PostgreSQL models and Alembic migration, Docker Compose, and run instructions. Dashboard cards use isolated demo data until the Phase 2 business APIs are added.
 
 ## Phase 2 — Trust and organization
 
