@@ -13,6 +13,7 @@ from app.procurement import models as procurement_models  # noqa: F401
 from app.organization.routes import router as organization_router
 from app.vendors.routes import router as vendors_router
 from app.procurement.routes import router as procurement_router
+from app.operations import OperationRecord, ProofRecord, router as operations_router, special_router as operations_special_router  # noqa: F401
 from app import models  # noqa: F401 - register SQLAlchemy models with metadata
 
 settings = get_settings()
@@ -33,3 +34,5 @@ app.include_router(organizations.router, prefix="/organizations", tags=["organiz
 app.include_router(organization_router)
 app.include_router(vendors_router)
 app.include_router(procurement_router)
+app.include_router(operations_special_router, prefix="/operations")
+app.include_router(operations_router, prefix="/operations")

@@ -12,7 +12,7 @@ TrustFlow 360 is an enterprise trust, procurement, supply chain and verification
 3. **Procurement workflows** — RFQs, bids, approvals, contracts and purchase orders.
 4. **Operations and verification** — shipments, QR verification, finance, risk, credentials, assets, blockchain and AI foundations.
 
-Phases 1, 2 and 3 are implemented. Phase 4 covers supply-chain operations and verification foundations.
+All four phases are implemented. Phase 4 provides tenant-scoped operations screens and API workflows with self-hosted alternatives for external integrations.
 
 ## Phase 1 structure
 
@@ -57,6 +57,11 @@ Available screens: `/`, `/login`, `/signup`, and `/dashboard`. Sign-up creates t
 - Dashboard summary cards use a separate realistic demo-data module; Phase 2 and 3 record screens load and save organization-scoped API data.
 - Phase 2: tenant-scoped users, custom roles/permissions, departments, copyable one-time team invitations, vendor lifecycle, certificates, verification and Trust Passport.
 - Phase 3: RFQ creation and approval to publish, comparable vendor bids with best-price/technical/delivery highlights, award/decline, contract review, purchase orders with line items, and approval decisions.
+- Phase 4: shipment tracking, invoice and payment status, risk reviews, credential references, asset register, local Trust Assistant summaries, and SHA-256 linked proofs with organization-scoped verification.
+
+## Phase 4 alternatives and integration points
+
+Phase 4 works in the self-hosted stack without paid third-party services. Carrier updates are recorded manually against shipments; finance tracks invoice and payment state but does not initiate transfers; credentials are references and do not store uploaded documents; the Trust Assistant uses local workspace rules rather than an external language model; and proofs form an organization-scoped SHA-256 chain. The proofs are tamper-evident application data, not transactions anchored to a public blockchain. Carrier, storage, payment, hosted AI and blockchain providers can be connected later through API adapters.
 
 ## Configuration and security
 
@@ -71,6 +76,7 @@ Keep each screen in its own route folder, move shared visual elements into `comp
 - `GET/POST /vendors`, `PATCH /vendors/{id}`, verify/suspend actions, certifications and `/vendors/{id}/passport`
 - `/organization/users`, `/organization/roles`, `/organization/departments`, `/organization/invitations` and `/organization/invitations/accept`
 - `GET/POST /rfqs`, publish approval, bid submission/comparison/award, `/approvals`, `/contracts` and `/purchase-orders` with items
+- `/operations/shipments`, `/operations/finance`, `/operations/risks`, `/operations/credentials`, `/operations/assets`, `/operations/proofs`, `/operations/verify/{digest}` and `/operations/assistant`
 - All business records carry an `organization_id`; API lookups check the signed-in user's tenant before returning or changing a record.
 
 ## Screenshots

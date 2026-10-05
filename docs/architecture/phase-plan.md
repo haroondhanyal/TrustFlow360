@@ -16,7 +16,9 @@ The work is split into four developer-friendly phases. Each screen and feature f
 
 ## Phase 4 — Operations and verification
 
-Shipments and QR verification, finance and risk, credentials and assets, blockchain proofs, AI/RAG, hardening, CI and observability.
+**Complete as a self-contained workspace implementation.** Tenant-scoped shipment, finance/invoice, risk, credential-reference and asset registers; workflow status actions; local rules-based Trust Assistant; and a SHA-256 linked proof ledger with authenticated verification endpoint. The proof ledger is a practical local alternative to a public blockchain. Shipment records expose tracking references and delivery milestones; external carrier feeds, payment rails, public blockchain anchoring, uploaded credential vaults, hosted AI/RAG and external CI/observability integrations require service credentials and remain integration points.
+
+Phase 4 adds `0003_operations` and the `/operations` API group. Screens are separate routes: `/shipments`, `/finance`, `/risks`, `/credentials`, `/assets`, `/proofs` and `/assistant`.
 
 ## Parallel ownership guide
 

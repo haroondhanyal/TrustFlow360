@@ -1,7 +1,7 @@
 import { NextRequest, NextResponse } from "next/server";
 
 const apiOrigin = process.env.API_URL ?? "http://localhost:8000";
-const allowedRoots = new Set(["vendors", "rfqs", "bids", "approvals", "contracts", "purchase-orders", "organization"]);
+const allowedRoots = new Set(["vendors", "rfqs", "bids", "approvals", "contracts", "purchase-orders", "organization", "operations"]);
 const publicPaths = new Set(["organization/invitations/accept"]);
 
 async function proxy(request: NextRequest, context: { params: Promise<{ path: string[] }> }) {

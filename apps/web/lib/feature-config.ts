@@ -1,4 +1,4 @@
-export type FeatureKey = "vendors" | "rfqs" | "bids" | "approvals" | "contracts" | "purchase-orders";
+export type FeatureKey = "vendors" | "rfqs" | "bids" | "approvals" | "contracts" | "purchase-orders" | "shipments" | "finance" | "risks" | "credentials" | "assets";
 
 export type FieldConfig = { name: string; label: string; type?: string; required?: boolean; options?: string[] };
 export type ActionConfig = { label: string; action: string; confirmation?: string };
@@ -39,5 +39,35 @@ export const featureConfig: Record<FeatureKey, FeatureConfig> = {
     columns: ["po_number", "title", "vendor_name", "amount", "item_count", "expected_delivery", "status"],
     fields: [{name:"title",label:"Order title",required:true},{name:"vendor_id",label:"Verified vendor",required:true},{name:"contract_id",label:"Active contract ID"},{name:"amount",label:"Order total",type:"number",required:true},{name:"item_name",label:"Line item",required:true},{name:"quantity",label:"Quantity",type:"number",required:true},{name:"unit_price",label:"Unit price",type:"number",required:true},{name:"expected_delivery",label:"Expected delivery",type:"date"}],
     actions: [],
+  },
+  shipments: {
+    title: "Shipments", description: "Track logistics handoffs, expected delivery and shipment references.", endpoint: "/operations/shipments",
+    columns: ["name", "status", "carrier", "tracking_number", "origin", "destination", "expected_delivery"],
+    fields: [{name:"name",label:"Shipment title",required:true},{name:"carrier",label:"Carrier"},{name:"tracking_number",label:"Tracking reference"},{name:"origin",label:"Origin"},{name:"destination",label:"Destination"},{name:"expected_delivery",label:"Expected delivery",type:"date"}],
+    actions: [{label:"In transit",action:"in_transit"},{label:"Delivered",action:"delivered"},{label:"Delayed",action:"delayed"}],
+  },
+  finance: {
+    title: "Finance", description: "Track invoices and payment status using your workspace records.", endpoint: "/operations/finance",
+    columns: ["name", "status", "vendor", "invoice_number", "amount", "currency", "due_date"],
+    fields: [{name:"name",label:"Invoice title",required:true},{name:"vendor",label:"Vendor"},{name:"invoice_number",label:"Invoice number"},{name:"amount",label:"Amount",type:"number"},{name:"currency",label:"Currency",required:true},{name:"due_date",label:"Due date",type:"date"}],
+    actions: [{label:"Mark paid",action:"paid"},{label:"Mark overdue",action:"overdue"}],
+  },
+  risks: {
+    title: "Risk & compliance", description: "Record supplier and operational risks with clear ownership and mitigation state.", endpoint: "/operations/risks",
+    columns: ["name", "status", "category", "severity", "owner", "review_date"],
+    fields: [{name:"name",label:"Risk title",required:true},{name:"category",label:"Category"},{name:"severity",label:"Severity",options:["low","medium","high","critical"]},{name:"owner",label:"Owner"},{name:"review_date",label:"Review date",type:"date"}],
+    actions: [{label:"Mitigated",action:"mitigated"},{label:"Accept risk",action:"accepted"}],
+  },
+  credentials: {
+    title: "Credentials", description: "Register credential references and review verification state. Attachments are kept in your configured storage, not this local register.", endpoint: "/operations/credentials",
+    columns: ["name", "status", "issuer", "credential_type", "reference", "expires_on"],
+    fields: [{name:"name",label:"Credential name",required:true},{name:"issuer",label:"Issuer"},{name:"credential_type",label:"Credential type"},{name:"reference",label:"Credential reference"},{name:"expires_on",label:"Expiry date",type:"date"}],
+    actions: [{label:"Verify",action:"verified"},{label:"Revoke",action:"revoked"}],
+  },
+  assets: {
+    title: "Assets", description: "Keep an organization-scoped register of equipment and traceable supply-chain assets.", endpoint: "/operations/assets",
+    columns: ["name", "status", "asset_tag", "category", "location", "custodian"],
+    fields: [{name:"name",label:"Asset name",required:true},{name:"asset_tag",label:"Asset tag"},{name:"category",label:"Category"},{name:"location",label:"Location"},{name:"custodian",label:"Custodian"}],
+    actions: [{label:"Activate",action:"active"},{label:"Retire",action:"retired"}],
   },
 };

@@ -33,6 +33,12 @@ export function FeatureWorkspace({ module, initialRows, choices = {} }: { module
       const raw = String(form.get(field.name) ?? "").trim();
       if (raw) values[field.name] = field.type === "number" ? Number(raw) : raw;
     }
+    if (["shipments", "finance", "risks", "credentials", "assets"].includes(module)) {
+      const name = String(values.name ?? "");
+      values.data = Object.fromEntries(Object.entries(values).filter(([key]) => key !== "name"));
+      values.name = name;
+      values.status = "open";
+    }
     if (module === "purchase-orders") {
       values.items = [{ name: values.item_name, quantity: values.quantity, unit_price: values.unit_price }];
       delete values.item_name; delete values.quantity; delete values.unit_price;
@@ -63,7 +69,9 @@ export function FeatureWorkspace({ module, initialRows, choices = {} }: { module
     setNotice("");
     const endpoint = module === "approvals" || module === "bids"
       ? `/${module}/${row.id}/decision`
-      : `${config.endpoint}/${row.id}/${action}`;
+      : ["shipments", "finance", "risks", "credentials", "assets"].includes(module)
+        ? `${config.endpoint}/${row.id}/decision`
+        : `${config.endpoint}/${row.id}/${action}`;
     try {
       const response = await fetch(`/api/backend${endpoint}`, {
         method: "POST",
@@ -85,6 +93,7 @@ export function FeatureWorkspace({ module, initialRows, choices = {} }: { module
       : row.status !== "active";
     if (module === "approvals") return row.status !== "pending";
     if (module === "bids") return row.status !== "submitted";
+    if (["shipments", "finance", "risks", "credentials", "assets"].includes(module)) return row.status === action;
     return row.status !== "draft";
   }
 
