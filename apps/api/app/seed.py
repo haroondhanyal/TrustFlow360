@@ -8,6 +8,7 @@ from app.core.security import hash_password
 from app.db.base import Base
 from app.db.session import SessionLocal, engine
 from app.models import Organization, User
+from app.operations import OperationRecord
 from app.organization.models import Department
 from app.procurement.models import Approval, Bid, Contract, PurchaseOrder, PurchaseOrderItem, RFQ, RFQItem
 from app.vendors.models import Vendor, VendorCertification
@@ -21,6 +22,20 @@ VENDOR_SEEDS = [
 ]
 
 
+def seed_operations(db, organization: Organization, admin: User, vendors: list[Vendor]) -> None:
+    examples = [
+        ("shipments", "Regional equipment shipment", "in_transit", {"carrier": "Demo Freight", "tracking_number": "TF-2026-001", "origin": "Karachi", "destination": "Lahore", "expected_delivery": (date.today() + timedelta(days=3)).isoformat()}),
+        ("finance", "Quarterly freight invoice", "open", {"vendor": vendors[0].name, "invoice_number": "INV-DEMO-001", "amount": 18250, "currency": "USD", "due_date": (date.today() + timedelta(days=14)).isoformat()}),
+        ("risks", "Single-route carrier dependency", "open", {"category": "Supply chain", "severity": "medium", "owner": "Procurement", "review_date": (date.today() + timedelta(days=30)).isoformat()}),
+        ("credentials", "ISO 27001 · Northstar Logistics", "verified", {"issuer": "ISO", "credential_type": "Security certification", "reference": "ISO-27001-2026", "expires_on": (date.today() + timedelta(days=365)).isoformat()}),
+        ("assets", "Regional network switch lot", "active", {"asset_tag": "AST-DEMO-001", "category": "Network equipment", "location": "Lahore office", "custodian": "IT Operations"}),
+    ]
+    for record_type, name, status, data in examples:
+        exists = db.scalar(select(OperationRecord.id).where(OperationRecord.organization_id == organization.id, OperationRecord.record_type == record_type, OperationRecord.name == name))
+        if not exists:
+            db.add(OperationRecord(organization_id=organization.id, created_by=admin.id, record_type=record_type, name=name, status=status, data=data))
+
+
 def seed() -> None:
     settings = get_settings()
     if settings.app_env != "development":
@@ -29,7 +44,12 @@ def seed() -> None:
     with SessionLocal() as db:
         organization = db.scalar(select(Organization).where(Organization.slug == "nexatel-demo"))
         if organization:
-            print("NexaTel demo data already exists")
+            admin = db.scalar(select(User).where(User.organization_id == organization.id, User.role == "organization_admin"))
+            vendors = db.scalars(select(Vendor).where(Vendor.organization_id == organization.id).order_by(Vendor.created_at)).all()
+            if admin and vendors:
+                seed_operations(db, organization, admin, vendors)
+                db.commit()
+            print("NexaTel demo workspace checked and Phase 4 examples added if missing")
             return
         organization = Organization(name="NexaTel Communications", workspace_name="NexaTel", slug="nexatel-demo", industry="Telecommunications", company_size="1,001-5,000", country="Pakistan")
         db.add(organization)
@@ -61,6 +81,7 @@ def seed() -> None:
         db.add(PurchaseOrderItem(purchase_order_id=order.id, organization_id=organization.id, created_by=admin.id, name="Regional freight pallet", quantity=5, unit_price=3650))
         approval = Approval(organization_id=organization.id, created_by=admin.id, requested_by=admin.id, object_type="purchase_order", object_id=order.id, title="Sample approval: software renewal", status="pending")
         db.add(approval)
+        seed_operations(db, organization, admin, vendors)
         db.commit()
         print("Demo workspace created: admin@demo.local / Demo-TrustFlow-123!")
 

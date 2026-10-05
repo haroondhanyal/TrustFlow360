@@ -43,6 +43,10 @@ export function FeatureWorkspace({ module, initialRows, choices = {} }: { module
       values.items = [{ name: values.item_name, quantity: values.quantity, unit_price: values.unit_price }];
       delete values.item_name; delete values.quantity; delete values.unit_price;
     }
+    if (module === "rfqs") {
+      values.items = [{ name: values.item_name, quantity: values.quantity, unit: values.unit, specifications: values.specifications }];
+      delete values.item_name; delete values.quantity; delete values.unit; delete values.specifications;
+    }
     try {
       const response = await fetch(`/api/backend${config.endpoint}${editingRow ? `/${editingRow.id}` : ""}`, {
         method: editingRow ? "PATCH" : "POST",

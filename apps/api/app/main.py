@@ -6,7 +6,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from app.core.config import get_settings
 from app.db.base import Base
 from app.db.session import engine
-from app.routes import auth, health, organizations
+from app.routes import auth, dashboard, health, organizations
 from app.organization import models as organization_models  # noqa: F401
 from app.vendors import models as vendor_models  # noqa: F401
 from app.procurement import models as procurement_models  # noqa: F401
@@ -29,6 +29,7 @@ async def lifespan(_: FastAPI):
 app = FastAPI(title="TrustFlow 360 API", version="0.1.0", lifespan=lifespan)
 app.add_middleware(CORSMiddleware, allow_origins=settings.cors_origins, allow_credentials=True, allow_methods=["GET", "POST", "PATCH", "DELETE"], allow_headers=["Authorization", "Content-Type"])
 app.include_router(health.router)
+app.include_router(dashboard.router)
 app.include_router(auth.router, prefix="/auth", tags=["auth"])
 app.include_router(organizations.router, prefix="/organizations", tags=["organizations"])
 app.include_router(organization_router)

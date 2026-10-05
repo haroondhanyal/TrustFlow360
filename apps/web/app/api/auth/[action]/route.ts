@@ -20,12 +20,15 @@ export async function POST(request: NextRequest, context: { params: Promise<{ ac
     const response = NextResponse.json({ ok: true }, { status: 200 });
     response.cookies.set("tf_access", "", { httpOnly: true, sameSite: "lax", secure: process.env.NODE_ENV === "production", path: "/", maxAge: 0 });
     response.cookies.set("tf_refresh", "", { httpOnly: true, sameSite: "lax", secure: process.env.NODE_ENV === "production", path: "/", maxAge: 0 });
+    response.cookies.set("tf_remember", "", { httpOnly: true, sameSite: "lax", secure: process.env.NODE_ENV === "production", path: "/", maxAge: 0 });
     return response;
   }
   const result = await upstream.json();
   if (!upstream.ok) return NextResponse.json(result, { status: upstream.status });
   const response = NextResponse.json({ user: result.user, organization: result.organization, has_organization: Boolean(result.organization) }, { status: upstream.status });
+  const remembered = body.remember === true;
   response.cookies.set("tf_access", result.access_token, { httpOnly: true, sameSite: "lax", secure: process.env.NODE_ENV === "production", path: "/", maxAge: accessAge });
-  response.cookies.set("tf_refresh", result.refresh_token, { httpOnly: true, sameSite: "lax", secure: process.env.NODE_ENV === "production", path: "/", maxAge: refreshAge });
+  response.cookies.set("tf_refresh", result.refresh_token, { httpOnly: true, sameSite: "lax", secure: process.env.NODE_ENV === "production", path: "/", maxAge: remembered ? refreshAge : 12 * 60 * 60 });
+  response.cookies.set("tf_remember", remembered ? "1" : "0", { httpOnly: true, sameSite: "lax", secure: process.env.NODE_ENV === "production", path: "/", maxAge: remembered ? refreshAge : 12 * 60 * 60 });
   return response;
 }

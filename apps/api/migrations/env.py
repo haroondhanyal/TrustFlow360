@@ -9,6 +9,7 @@ from app import models  # noqa: F401 - register models for autogenerate
 from app.organization import models as organization_models  # noqa: F401
 from app.vendors import models as vendor_models  # noqa: F401
 from app.procurement import models as procurement_models  # noqa: F401
+from app.operations import OperationRecord, ProofRecord  # noqa: F401
 
 config = context.config
 config.set_main_option("sqlalchemy.url", get_settings().database_url)

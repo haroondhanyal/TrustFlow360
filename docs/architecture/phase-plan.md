@@ -4,7 +4,7 @@ The work is split into four developer-friendly phases. Each screen and feature f
 
 ## Phase 1 — Foundation and product experience
 
-**Complete.** Brand and repository setup, landing page, sign-in, three-step account and organization onboarding, workspace creation, protected dashboard shell, FastAPI service, JWT auth, PostgreSQL models and Alembic migration, Docker Compose, and run instructions. Dashboard summary cards use isolated demo data; Phase 2 and 3 screens use tenant-scoped API records.
+**Complete.** Brand and repository setup, landing page, sign-in, three-step account and organization onboarding, workspace creation, protected dashboard shell, FastAPI service, JWT auth with rotating refresh sessions, PostgreSQL models and Alembic migration, Docker Compose, and run instructions. Dashboard counts, vendor trust snapshot, pending approvals and recent activity use tenant-scoped API records.
 
 ## Phase 2 — Trust and organization
 

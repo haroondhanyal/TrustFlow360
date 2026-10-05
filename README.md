@@ -10,7 +10,7 @@ TrustFlow 360 is an enterprise trust, procurement, supply chain and verification
 1. **Foundation and product experience** — monorepo, brand, design tokens, landing, sign-in, account and organization onboarding, dashboard, API, auth and PostgreSQL.
 2. **Trust and organization** — users, roles, departments, vendor management and Trust Passport.
 3. **Procurement workflows** — RFQs, bids, approvals, contracts and purchase orders.
-4. **Operations and verification** — shipments, QR verification, finance, risk, credentials, assets, blockchain and AI foundations.
+4. **Operations and verification** — shipments, proof verification links, finance, risk, credentials, assets, blockchain and AI foundations.
 
 All four phases are implemented. Phase 4 provides tenant-scoped operations screens and API workflows with self-hosted alternatives for external integrations.
 
@@ -46,7 +46,7 @@ This starts PostgreSQL, applies the initial Alembic migration, starts the API at
 
 To populate a local demo workspace, run `npm run seed:demo` after the stack is ready. Demo sign-in: `admin@demo.local` / `Demo-TrustFlow-123!` (development only). Change or remove this account before sharing a non-local deployment.
 
-Available screens: `/`, `/login`, `/signup`, and `/dashboard`. Sign-up creates the account, organization and named workspace. The dashboard route requires an auth cookie.
+Available screens include `/`, `/login`, `/signup`, `/dashboard`, the organization and procurement workspaces, plus `/shipments`, `/finance`, `/risks`, `/credentials`, `/assets`, `/proofs` and `/assistant`. Sign-up creates the account, organization and named workspace. Workspace screens require an authenticated session.
 
 ## Tech choices
 
@@ -54,7 +54,8 @@ Available screens: `/`, `/login`, `/signup`, and `/dashboard`. Sign-up creates t
 - CSS variables and small, reusable React components
 - FastAPI, SQLAlchemy, PostgreSQL and Alembic for the account, organization and refresh-session foundation.
 - Argon2 password hashes, short-lived JWT access tokens, rotating refresh sessions and same-site `HttpOnly` browser cookies.
-- Dashboard summary cards use a separate realistic demo-data module; Phase 2 and 3 record screens load and save organization-scoped API data.
+- Dashboard counts, vendor trust snapshot, pending approvals and recent activity load from the signed-in organization’s API records.
+- Protected workspace navigation renews short-lived access tokens with the rotating refresh session.
 - Phase 2: tenant-scoped users, custom roles/permissions, departments, copyable one-time team invitations, vendor lifecycle, certificates, verification and Trust Passport.
 - Phase 3: RFQ creation and approval to publish, comparable vendor bids with best-price/technical/delivery highlights, award/decline, contract review, purchase orders with line items, and approval decisions.
 - Phase 4: shipment tracking, invoice and payment status, risk reviews, credential references, asset register, local Trust Assistant summaries, and SHA-256 linked proofs with organization-scoped verification.

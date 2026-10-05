@@ -14,7 +14,7 @@ export const featureConfig: Record<FeatureKey, FeatureConfig> = {
   rfqs: {
     title: "Requests for quotation", description: "Create sourcing requests, publish them for approval, and compare received bids.", endpoint: "/rfqs",
     columns: ["rfq_number", "title", "department", "budget", "currency", "deadline", "bid_count", "status"],
-    fields: [{name:"title",label:"Request title",required:true},{name:"department",label:"Department",required:true},{name:"budget",label:"Budget",type:"number",required:true},{name:"currency",label:"Currency",required:true},{name:"deadline",label:"Submission deadline",type:"date",required:true},{name:"invited_vendors",label:"Vendors to invite",type:"number"},{name:"description",label:"Description",type:"textarea"}],
+    fields: [{name:"title",label:"Request title",required:true},{name:"department",label:"Department",required:true},{name:"budget",label:"Budget",type:"number",required:true},{name:"currency",label:"Currency",required:true},{name:"deadline",label:"Submission deadline",type:"date",required:true},{name:"invited_vendors",label:"Vendors to invite",type:"number"},{name:"item_name",label:"First required item",required:true},{name:"quantity",label:"Quantity",type:"number",required:true},{name:"unit",label:"Unit",required:true},{name:"specifications",label:"Item specifications",type:"textarea"},{name:"description",label:"Request description",type:"textarea"}],
     actions: [{label:"Send for approval",action:"publish"}],
   },
   bids: {
