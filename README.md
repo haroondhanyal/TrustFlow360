@@ -48,6 +48,8 @@ This starts PostgreSQL, applies the initial Alembic migration, starts the API at
 
 To populate a local demo workspace, run `npm run seed:demo` after the stack is ready. Demo sign-in: `admin@example.com` / `Demo-TrustFlow-123!` (development only). Change or remove this account before sharing a non-local deployment.
 
+The seeder creates 20 role-based development accounts and 25–30 records for each data workspace. See [DATA-README.md](DATA-README.md) for all sign-in credentials, record counts and reset steps. Passwords in that file are intentionally limited to local demo use.
+
 Available screens include `/`, `/login`, `/signup`, `/dashboard`, the organization and procurement workspaces, plus `/shipments`, `/finance`, `/risks`, `/credentials`, `/assets`, `/proofs` and `/assistant`. Sign-up creates the account, organization and named workspace. Workspace screens require an authenticated session.
 
 ## Tech choices
@@ -84,7 +86,7 @@ Keep each screen in its own route folder, move shared visual elements into `comp
 
 ## Screenshots
 
-Screenshots will be added as the screens are reviewed in a running environment.
+Full-page screenshots were captured from the running app after seeding fresh demo records. The [screenshot gallery](docs/screenshots/README.md) covers the landing/auth flow, organization, vendor passport, procurement, operations, proof verification and Trust Assistant screens.
 
 ## Roadmap
 

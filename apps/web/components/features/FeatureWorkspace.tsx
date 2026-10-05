@@ -115,7 +115,7 @@ export function FeatureWorkspace({ module, initialRows, choices = {} }: { module
       return <span className={`feature-status status-${label.toLowerCase().replaceAll(" ", "-")}`}>{label}</span>;
     }
     if (["amount", "budget", "value"].includes(key)) {
-      const formatted = Number(value ?? 0).toLocaleString(undefined, { style: "currency", currency: String(row.currency ?? "USD"), maximumFractionDigits: 0 });
+      const formatted = Number(value ?? 0).toLocaleString("en-US", { style: "currency", currency: String(row.currency ?? "USD"), maximumFractionDigits: 0 });
       const bestBid = module === "bids" && Number(value) === Math.min(...rows.map((item) => Number(item.amount)));
       return bestBid ? <span className="comparison-best">{formatted}<i>Lowest price</i></span> : formatted;
     }
