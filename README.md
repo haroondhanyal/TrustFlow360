@@ -42,9 +42,11 @@ The standalone web command is useful for working on screens; account creation an
 npm run stack:up
 ```
 
+If port `3000` is already in use, start the web app on port `3001` with `WEB_PORT=3001 npm run stack:up -- --detach` and open <http://localhost:3001>.
+
 This starts PostgreSQL, applies the initial Alembic migration, starts the API at <http://localhost:8000> and web app at <http://localhost:3000>. API docs are at <http://localhost:8000/docs>. The PostgreSQL volume persists between runs; `npm run stack:down` stops the services without deleting data.
 
-To populate a local demo workspace, run `npm run seed:demo` after the stack is ready. Demo sign-in: `admin@demo.local` / `Demo-TrustFlow-123!` (development only). Change or remove this account before sharing a non-local deployment.
+To populate a local demo workspace, run `npm run seed:demo` after the stack is ready. Demo sign-in: `admin@example.com` / `Demo-TrustFlow-123!` (development only). Change or remove this account before sharing a non-local deployment.
 
 Available screens include `/`, `/login`, `/signup`, `/dashboard`, the organization and procurement workspaces, plus `/shipments`, `/finance`, `/risks`, `/credentials`, `/assets`, `/proofs` and `/assistant`. Sign-up creates the account, organization and named workspace. Workspace screens require an authenticated session.
 

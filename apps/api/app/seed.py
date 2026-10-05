@@ -45,6 +45,8 @@ def seed() -> None:
         organization = db.scalar(select(Organization).where(Organization.slug == "nexatel-demo"))
         if organization:
             admin = db.scalar(select(User).where(User.organization_id == organization.id, User.role == "organization_admin"))
+            if admin and admin.email == "admin@demo.local":
+                admin.email = "admin@example.com"
             vendors = db.scalars(select(Vendor).where(Vendor.organization_id == organization.id).order_by(Vendor.created_at)).all()
             if admin and vendors:
                 seed_operations(db, organization, admin, vendors)
@@ -54,14 +56,14 @@ def seed() -> None:
         organization = Organization(name="NexaTel Communications", workspace_name="NexaTel", slug="nexatel-demo", industry="Telecommunications", company_size="1,001-5,000", country="Pakistan")
         db.add(organization)
         db.flush()
-        admin = User(organization_id=organization.id, email="admin@demo.local", first_name="Sofia", last_name="Khan", password_hash=hash_password("Demo-TrustFlow-123!"), role="organization_admin")
+        admin = User(organization_id=organization.id, email="admin@example.com", first_name="Sofia", last_name="Khan", password_hash=hash_password("Demo-TrustFlow-123!"), role="organization_admin")
         db.add(admin)
         db.flush()
         department = Department(organization_id=organization.id, created_by=admin.id, name="Procurement", description="Strategic sourcing and supplier operations")
         db.add(department)
         vendors = []
         for index, (name, category, country, trust, delivery) in enumerate(VENDOR_SEEDS, 1):
-            vendor = Vendor(organization_id=organization.id, created_by=admin.id, vendor_number=f"VEN-{index:04d}", name=name, category=category, country=country, verification_status="verified", risk_level="low" if trust >= 90 else "medium", status="active", trust_score=trust, delivery_score=delivery, compliance_score=trust - 2, tax_id=f"TX-{index:04d}", registration_number=f"REG-{index:04d}", contact_name=f"Partner {index}", contact_email=f"vendor{index}@demo.local")
+            vendor = Vendor(organization_id=organization.id, created_by=admin.id, vendor_number=f"VEN-{index:04d}", name=name, category=category, country=country, verification_status="verified", risk_level="low" if trust >= 90 else "medium", status="active", trust_score=trust, delivery_score=delivery, compliance_score=trust - 2, tax_id=f"TX-{index:04d}", registration_number=f"REG-{index:04d}", contact_name=f"Partner {index}", contact_email=f"vendor{index}@example.com")
             db.add(vendor)
             vendors.append(vendor)
         db.flush()
@@ -83,7 +85,7 @@ def seed() -> None:
         db.add(approval)
         seed_operations(db, organization, admin, vendors)
         db.commit()
-        print("Demo workspace created: admin@demo.local / Demo-TrustFlow-123!")
+        print("Demo workspace created: admin@example.com / Demo-TrustFlow-123!")
 
 
 if __name__ == "__main__":
